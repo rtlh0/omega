@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            width: 100%;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+        }
+        .tech-tree {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+        }
+        .tree {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+            width: 80%;
+            box-sizing: border-box;
+        }
+        .skill {
+            cursor: pointer;
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .skill:not(.acquired) {
+            opacity: 0.4;
+        }
+        .skill:hover {
+            background-color: #eee;
+        }
+        .description {
+            display: none;
+        }
+        .skill:hover .description {
+            display: block;
+        }
+        .skill img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="#">Campaign</a>
+        <a href="#">Market</a>
+        <a href="#">Skill Tree</a>
+        <a href="#">Settings</a>
+    </div>
+
+    <h1>Skill Tree</h1>
+
+    <div class="tech-tree">
+        <div class="tree" id="public_speaker">
+            <h2>Public Speaker</h2>
+        </div>
+
+        <div class="tree" id="pr_expert">
+            <h2>PR Expert</h2>
+        </div>
+
+        <div class="tree" id="resource_management">
+            <h2>Resource Management</h2>
+        </div>
+
+        <div class="tree" id="reformer">
+            <h2>Reformer</h2>
+        </div>
+
+        <div class="tree" id="lawmaking">
+            <h2>Lawmaking</h2>
+        </div>
+    </div>
+
+    <script>
+        var techTrees = {
+            "public_speaker": [
+                {"name": "Oratory", "description": "Increase your political power gain.", "cost": 10, "acquired": true, "icon": "unlocked.png"},
+                {"name": "Charisma", "description": "Increase your influence over others.", "cost": 20, "acquired": true, "icon": "unlocked.png"},
+                {"name": "Debate", "description": "Become more effective in political debates.", "cost": 30, "acquired": false, "icon": "locked.png"}
+            ],
+            "pr_expert": [
+                {"name": "Media Relations", "description": "Improve your relationships with media.", "cost": 10, "acquired": false, "icon": "locked.png"},
+                {"name": "Crisis Management", "description": "Handle political crises effectively.", "cost": 20, "acquired": false, "icon": "locked.png"},
+                {"name": "Spin Doctor", "description": "Learn to spin narratives in your favor.", "cost": 30, "acquired": false, "icon": "locked.png"}
+            ],
+            "resource_management": [
+                {"name": "Fundraising", "description": "Increase your ability to raise funds.", "cost": 10, "acquired": false, "icon": "locked.png"},
+                {"name": "Efficiency", "description": "Make your operations more efficient.", "cost": 20, "acquired": false, "icon": "locked.png"},
+                {"name": "Investment", "description": "Increase your returns on investment.", "cost": 30, "acquired": false, "icon": "locked.png"}
+            ],
+            "reformer": [
+                {"name": "Legislation", "description": "Become more effective in creating legislation.", "cost": 10, "acquired": false, "icon": "locked.png"},
+                {"name": "Negotiation", "description": "Improve your negotiation skills.", "cost": 20, "acquired": false, "icon": "locked.png"},
+                {"name": "Integrity", "description": "Increase your resistance to scandals.", "cost": 30, "acquired": false, "icon": "locked.png"}
+            ],
+            "lawmaking": [
+                {"name": "Legal Expert", "description": "Increase your understanding of the law.", "cost": 10, "acquired": false, "icon": "locked.png"},
+                {"name": "Influence", "description": "Increase your influence over lawmaking.", "cost": 20, "acquired": false, "icon": "locked.png"},
+                {"name": "Reformist", "description": "Become more effective in reforming laws.", "cost": 30, "acquired": false, "icon": "locked.png"}
+            ]
+        }
+
+        for(var tree in techTrees) {
+            var skills = techTrees[tree];
+            for(var i = 0; i < skills.length; i++) {
+                var skillDiv = document.createElement("div");
+                skillDiv.className = "skill";
+                if(skills[i].acquired) {
+                    skillDiv.classList.add("acquired");
+                }
+
+                var skillIcon = document.createElement("img");
+                skillIcon.src = skills[i].icon;
+                skillDiv.appendChild(skillIcon);
+
+                var skillName = document.createElement("p");
+                skillName.textContent = skills[i].name;
+                skillDiv.appendChild(skillName);
+
+                var skillCost = document.createElement("p");
+                skillCost.textContent = "Cost: " + skills[i].cost;
+                skillDiv.appendChild(skillCost);
+
+                var skillDesc = document.createElement("p");
+                skillDesc.textContent = skills[i].description;
+                skillDesc.className = "description";
+                skillDiv.appendChild(skillDesc);
+
+                document.getElementById(tree).appendChild(skillDiv);
+            }
+        }
+    </script>
+</body>
+</html>
