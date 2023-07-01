@@ -138,35 +138,52 @@
             ]
         }
 
-        for(var tree in techTrees) {
-            var skills = techTrees[tree];
-            for(var i = 0; i < skills.length; i++) {
-                var skillDiv = document.createElement("div");
-                skillDiv.className = "skill";
-                if(skills[i].acquired) {
-                    skillDiv.classList.add("acquired");
+        for (var treeId in techTrees) 
+        {
+            var tree = document.getElementById(treeId);
+            var skills = techTrees[treeId];
+
+            for (var i = 0; i < skills.length; i++) 
+            {
+                var skillElement = document.createElement("div");
+                skillElement.classList.add("skill");
+                if (skills[i].acquired) {
+                    skillElement.classList.add("acquired");
                 }
 
-                var skillIcon = document.createElement("img");
-                skillIcon.src = skills[i].icon;
-                skillDiv.appendChild(skillIcon);
+                var imgElement = document.createElement("img");
+                imgElement.src = skills[i].icon;
+                imgElement.alt = skills[i].name;
+                imgElement.width = 50;
+                skillElement.appendChild(imgElement);
 
-                var skillName = document.createElement("p");
-                skillName.textContent = skills[i].name;
-                skillDiv.appendChild(skillName);
+                var nameElement = document.createElement("p");
+                nameElement.textContent = skills[i].name;
+                skillElement.appendChild(nameElement);
 
-                var skillCost = document.createElement("p");
-                skillCost.textContent = "Cost: " + skills[i].cost;
-                skillDiv.appendChild(skillCost);
+                var descriptionElement = document.createElement("p");
+                descriptionElement.classList.add("description");
+                descriptionElement.textContent = skills[i].description;
+                skillElement.appendChild(descriptionElement);
 
-                var skillDesc = document.createElement("p");
-                skillDesc.textContent = skills[i].description;
-                skillDesc.className = "description";
-                skillDiv.appendChild(skillDesc);
+                var costElement = document.createElement("p");
+                costElement.textContent = "Cost: " + skills[i].cost;
+                skillElement.appendChild(costElement);
 
-                document.getElementById(tree).appendChild(skillDiv);
+                tree.appendChild(skillElement);
+
+                // Adding event listener for click
+                skillElement.addEventListener("click", function() {
+                    this.classList.toggle("acquired");
+                    var img = this.querySelector('img');
+                    if (this.classList.contains("acquired")) {
+                        img.src = "unlocked.png";
+                    } else {
+                        img.src = "locked.png"; // Update this to your actual icon path
+                    }
+                });
             }
-        }
+}
     </script>
 </body>
 </html>
